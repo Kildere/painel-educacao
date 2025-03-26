@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(page_title="Painel da Educação", layout="wide")
+
 # -----------------------------
 # 1. CARREGAR OS DADOS
 # -----------------------------
@@ -35,7 +37,7 @@ df, index_cols = load_data()
 # -----------------------------
 # 2. PÁGINA DINÂMICA
 # -----------------------------
-st.set_page_config(page_title="Painel da Educação", layout="wide")
+
 view = st.sidebar.selectbox("Navegação", ["Visão Estadual"] + sorted(df['Regional'].unique()) + sorted(df['Município'].unique()))
 
 # -----------------------------
