@@ -17,7 +17,7 @@ def load_data():
         col = col.strip()
         if col in seen:
             seen[col] += 1
-            col = f\"{col}_{seen[col]}\"
+            col = f"{col}_{seen[col]}"
         else:
             seen[col] = 0
         new_cols.append(col)
