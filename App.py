@@ -10,8 +10,21 @@ def load_data():
     df = pd.read_csv("Est_GRE_Mun_EscolaV5.csv", sep=';')
 
     # Corrigir colunas duplicadas e espaços
-    df.columns = pd.io.parsers.ParserBase({'names': df.columns})._maybe_dedup_names()
-    df.columns = [col.strip() for col in df.columns]
+    def deduplicate_columns(columns):
+    seen = {}
+    new_cols = []
+    for col in columns:
+        col = col.strip()
+        if col in seen:
+            seen[col] += 1
+            col = f\"{col}_{seen[col]}\"
+        else:
+            seen[col] = 0
+        new_cols.append(col)
+    return new_cols
+
+df.columns = deduplicate_columns(df.columns)
+
 
     # Garantir que as colunas de índice sejam numéricas e arredondadas
     index_cols = df.columns[-18:]
