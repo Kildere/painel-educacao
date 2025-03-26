@@ -5,26 +5,24 @@ import pandas as pd
 # 1. CARREGAR OS DADOS
 # -----------------------------
 @st.cache_data
-
 def load_data():
     df = pd.read_csv("Est_GRE_Mun_EscolaV5.csv", sep=';')
 
     # Corrigir colunas duplicadas e espaços
     def deduplicate_columns(columns):
-    seen = {}
-    new_cols = []
-    for col in columns:
-        col = col.strip()
-        if col in seen:
-            seen[col] += 1
-            col = f"{col}_{seen[col]}"
-        else:
-            seen[col] = 0
-        new_cols.append(col)
-    return new_cols
+        seen = {}
+        new_cols = []
+        for col in columns:
+            col = col.strip()
+            if col in seen:
+                seen[col] += 1
+                col = f"{col}_{seen[col]}"
+            else:
+                seen[col] = 0
+            new_cols.append(col)
+        return new_cols
 
-df.columns = deduplicate_columns(df.columns)
-
+    df.columns = deduplicate_columns(df.columns)
 
     # Garantir que as colunas de índice sejam numéricas e arredondadas
     index_cols = df.columns[-18:]
